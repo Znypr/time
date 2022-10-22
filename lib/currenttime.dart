@@ -4,11 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CurrentTime extends StatefulWidget {
-  int type;
-  CurrentTime(this.type);
+  int format;
+  CurrentTime(this.format);
   @override
-  State<StatefulWidget> createState() => TimeState(type);
-
+  State<StatefulWidget> createState() => TimeState(format);
 }
 
 class TimeState extends State {
@@ -21,9 +20,9 @@ class TimeState extends State {
 
   String morning = "";
 
-  int type;
+  int format;
 
-  TimeState(this.type);
+  TimeState(this.format);
 
   @override
   void initState() {
@@ -35,13 +34,20 @@ class TimeState extends State {
 
   String convertWeekday(int d) {
     switch (d) {
-      case 1:return "Monday";
-      case 2:return "Tuesday";
-      case 3:return "Wednesday";
-      case 4:return "Thursday";
-      case 5:return "Friday";
-      case 6:return "Saturday";
-      case 7:return "Sunday";
+      case 1:
+        return "Monday";
+      case 2:
+        return "Tuesday";
+      case 3:
+        return "Wednesday";
+      case 4:
+        return "Thursday";
+      case 5:
+        return "Friday";
+      case 6:
+        return "Saturday";
+      case 7:
+        return "Sunday";
     }
     return "";
   }
@@ -58,26 +64,29 @@ class TimeState extends State {
   }
 
   String setTime() {
-    switch(type) {
-      case 1: return "$d, $h:$m $morning";
-      case 2: return "$h:$m $morning";
-      case 3: return "$h:$m:$s $morning";
+    switch (format) {
+      case 1:
+        return "$d, $h:$m $morning";
+      case 2:
+        return "$h:$m $morning";
+      case 3:
+        return "$h:$m:$s $morning";
     }
     return "";
   }
 
   int convertAmerican(int h) {
-    morning = h<12? "AM":"PM";
-    return h%12;
-}
+    morning = h < 12 ? "AM" : "PM";
+    return h != 12 ? h % 12 : h;
+  }
 
   @override
-  Widget build(BuildContext contextconst ) {
+  Widget build(BuildContext contextconst) {
     getTime();
     return Padding(
         padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-        child: Text(
-            t,
-            style:const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.white)));
+        child: Text(t,
+            style:
+                const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.white)));
   }
 }
